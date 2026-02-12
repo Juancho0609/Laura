@@ -6,9 +6,6 @@
   --pink1:#ff4d6d;
   --pink2:#ff2d55;
   --pink3:#ff7aa2;
-
-  --wood1:#a26543;
-  --wood2:#3a241b;
 }
 
 *{ box-sizing:border-box; }
@@ -51,14 +48,13 @@ body{
   overflow:hidden;
 }
 
-/* ---------- INICIO ---------- */
+/* INICIO */
 .start{
   display:grid;
   place-items:center;
   text-align:center;
   padding:46px 12px 52px;
   gap:12px;
-  position:relative;
   min-height: 520px;
 }
 
@@ -71,6 +67,13 @@ body{
   margin:0;
   color:var(--muted);
   font-size: clamp(14px, 2vw, 18px);
+}
+
+.made{
+  margin:0;
+  color:var(--muted);
+  font-size: 14px;
+  opacity:.9;
 }
 
 .heartBtn{
@@ -99,7 +102,7 @@ body{
   50%{ transform: scale(1.08); opacity:1; }
 }
 
-/* CORAZÓN DEL INICIO (se ve sí o sí) */
+/* Corazón */
 .heartReal{
   width:140px;
   height:120px;
@@ -108,7 +111,6 @@ body{
   filter: drop-shadow(0 22px 34px rgba(255,45,85,.25));
 }
 
-/* bolitas arriba */
 .heartReal::before,
 .heartReal::after{
   content:"";
@@ -124,7 +126,6 @@ body{
 .heartReal::before{ left:0; }
 .heartReal::after{ right:0; }
 
-/* punta */
 .heartReal{
   background: linear-gradient(135deg, var(--pink3), var(--pink2));
   clip-path: polygon(50% 95%, 0 35%, 18% 15%, 50% 40%, 82% 15%, 100% 35%);
@@ -137,10 +138,6 @@ body{
   50%{ transform: translateY(-10px); }
 }
 
-.heartBtn:hover .heartReal{
-  filter: drop-shadow(0 26px 40px rgba(255,45,85,.32));
-}
-
 .hand{
   position:absolute;
   bottom: 10px;
@@ -148,9 +145,9 @@ body{
   filter: drop-shadow(0 8px 12px rgba(0,0,0,.25));
 }
 
-/* ---------- CONTENIDO ---------- */
 .hidden{ display:none; }
 
+/* CONTENIDO */
 .content{
   display:grid;
   grid-template-columns: 1.12fr 1fr;
@@ -199,116 +196,28 @@ body{
   font-size: clamp(16px, 2vw, 22px);
 }
 
-/* ---------- ÁRBOL (ARREGLADO) ---------- */
+/* Árbol SVG */
 .right{ display:grid; place-items:center; }
 
-.tree{
-  position:relative;
-  width:min(520px, 52vw);
-  height: 520px;
-  z-index:2; /* árbol encima de la lluvia */
+.treeWrap{
+  width:min(560px, 56vw);
+  max-width: 560px;
 }
 
-/* ramas visibles */
-.branches{
-  position:absolute;
-  left:50%;
-  top: 165px;
-  transform: translateX(-50%);
-  width: 420px;
-  height: 280px;
-  z-index:3;
-  opacity:1;
-  filter: drop-shadow(0 14px 18px rgba(0,0,0,.12));
+.treeSvg{
+  width:100%;
+  height:auto;
+  display:block;
 }
 
-/* copa corazón grande pero NO tapa todo */
-.canopySvg{
-  position:absolute;
-  left:50%;
-  top: 40px;
-  transform: translateX(-50%);
-  width: 420px;
-  height: 360px;
-  z-index:2;
-  opacity:.75;
-  filter: drop-shadow(0 18px 22px rgba(0,0,0,.12));
-}
-
-/* hojas por encima (JS) */
-.leaves{
-  position:absolute;
-  left:50%;
-  top: 58px;
-  transform: translateX(-50%);
-  width: 420px;
-  height: 330px;
-  z-index:4;
-  pointer-events:none;
-  filter: drop-shadow(0 18px 22px rgba(0,0,0,.10));
-}
-
-/* tronco */
-.trunk{
-  position:absolute;
-  left:50%;
-  bottom: 70px;
-  transform: translateX(-50%);
-  width: 90px;
-  height: 260px;
-  background: linear-gradient(180deg, var(--wood1), var(--wood2));
-  border-radius: 50px 50px 28px 28px;
-  box-shadow:
-    inset -18px 0 0 rgba(255,255,255,.06),
-    0 22px 34px rgba(0,0,0,.18);
-  z-index:1;
-}
-
-/* suelo */
-.floor{
-  position:absolute;
-  left:12%;
-  right:12%;
-  bottom: 52px;
-  height:4px;
-  background: rgba(0,0,0,.55);
-  border-radius:999px;
-  z-index:1;
-}
-
-/* hojas pequeñas (para que parezca árbol) */
-.leaf{
-  position:absolute;
-  width: 10px;
-  height: 10px;
-  background: linear-gradient(135deg, rgba(255,255,255,.40), var(--pink1));
-  transform: rotate(45deg);
-  border-radius: 3px;
-  opacity: .95;
-  filter: drop-shadow(0 10px 12px rgba(0,0,0,.10));
-}
-
-.leaf::before,
-.leaf::after{
-  content:"";
-  position:absolute;
-  width: 10px;
-  height: 10px;
-  background: inherit;
-  border-radius: 50%;
-}
-.leaf::before{ left:-5px; top:0; }
-.leaf::after{ left:0; top:-5px; }
-
-/* ---------- LLUVIA (NO TAPA EL ÁRBOL) ---------- */
+/* lluvia (suave y detrás) */
 .rain{
   position:absolute;
   inset:0;
   pointer-events:none;
   overflow:hidden;
-  z-index:0;      /* atrás */
-  opacity:.28;    /* suave */
-  filter: blur(.2px);
+  z-index:0;
+  opacity:.22;
 }
 
 .drop{
@@ -323,14 +232,13 @@ body{
   to{ transform: translateY(120%); opacity: 0.9; }
 }
 
-/* ---------- RESPONSIVE ---------- */
+/* Responsive */
 @media (max-width: 900px){
   .content{
     grid-template-columns: 1fr;
     min-height: 780px;
     gap: 14px;
   }
-  .tree{ width:min(520px, 94vw); height: 520px; }
-  .canopySvg, .leaves, .branches{ width: 380px; height: 330px; }
-  .branches{ top: 180px; }
+  .treeWrap{ width:min(560px, 92vw); }
 }
+
