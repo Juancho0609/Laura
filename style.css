@@ -1,0 +1,336 @@
+:root{
+  --card:#f2e7dc;
+  --text:#2b2b2b;
+  --muted:#6b6b6b;
+
+  --pink1:#ff4d6d;
+  --pink2:#ff2d55;
+  --pink3:#ff7aa2;
+
+  --wood1:#a26543;
+  --wood2:#3a241b;
+}
+
+*{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--text);
+  overflow:hidden;
+}
+
+/* Fondo */
+.bg{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(900px 620px at 25% 20%, rgba(255,255,255,.14), transparent 60%),
+    radial-gradient(900px 600px at 70% 80%, rgba(255,45,120,.23), transparent 65%),
+    linear-gradient(180deg, #5a0066, #17001f);
+}
+
+.wrap{
+  position:relative;
+  z-index:1;
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  padding:16px;
+}
+
+/* Tarjeta */
+.card{
+  width:min(1120px, 96vw);
+  background:var(--card);
+  border-radius:34px;
+  padding:26px;
+  box-shadow: 0 36px 120px rgba(0,0,0,.52);
+  position:relative;
+  overflow:hidden;
+}
+
+/* ---------- INICIO ---------- */
+.start{
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:46px 12px 52px;
+  gap:12px;
+  position:relative;
+  min-height: 520px;
+}
+
+.heroTitle{
+  margin:0;
+  font-size: clamp(36px, 4.8vw, 70px);
+}
+
+.heroSub{
+  margin:0;
+  color:var(--muted);
+  font-size: clamp(14px, 2vw, 18px);
+}
+
+.heartBtn{
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  position:relative;
+  padding:26px 28px 40px;
+  display:grid;
+  place-items:center;
+}
+
+.heartBtn::before{
+  content:"";
+  position:absolute;
+  width: 240px;
+  height: 240px;
+  border-radius:50%;
+  background: radial-gradient(circle, rgba(255,45,85,.22), transparent 60%);
+  opacity:.9;
+  animation: glow 1.8s ease-in-out infinite;
+}
+
+@keyframes glow{
+  0%,100%{ transform: scale(1); opacity:.75; }
+  50%{ transform: scale(1.08); opacity:1; }
+}
+
+/* CORAZÓN DEL INICIO (se ve sí o sí) */
+.heartReal{
+  width:140px;
+  height:120px;
+  position:relative;
+  animation: floaty 2.2s ease-in-out infinite;
+  filter: drop-shadow(0 22px 34px rgba(255,45,85,.25));
+}
+
+/* bolitas arriba */
+.heartReal::before,
+.heartReal::after{
+  content:"";
+  position:absolute;
+  width:80px;
+  height:80px;
+  top:0;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), rgba(255,255,255,0) 45%),
+    linear-gradient(135deg, var(--pink3), var(--pink2));
+  border-radius:50%;
+}
+.heartReal::before{ left:0; }
+.heartReal::after{ right:0; }
+
+/* punta */
+.heartReal{
+  background: linear-gradient(135deg, var(--pink3), var(--pink2));
+  clip-path: polygon(50% 95%, 0 35%, 18% 15%, 50% 40%, 82% 15%, 100% 35%);
+  border-radius: 18px;
+  box-shadow: inset 0 -12px 0 rgba(0,0,0,.06);
+}
+
+@keyframes floaty{
+  0%,100%{ transform: translateY(0); }
+  50%{ transform: translateY(-10px); }
+}
+
+.heartBtn:hover .heartReal{
+  filter: drop-shadow(0 26px 40px rgba(255,45,85,.32));
+}
+
+.hand{
+  position:absolute;
+  bottom: 10px;
+  font-size:22px;
+  filter: drop-shadow(0 8px 12px rgba(0,0,0,.25));
+}
+
+/* ---------- CONTENIDO ---------- */
+.hidden{ display:none; }
+
+.content{
+  display:grid;
+  grid-template-columns: 1.12fr 1fr;
+  gap:24px;
+  align-items:center;
+  padding: 16px 12px 22px;
+  min-height: 600px;
+  position:relative;
+  z-index:2;
+}
+
+.left{ padding: 10px 8px 10px 18px; }
+
+.left h2{
+  margin:0 0 12px;
+  font-size: clamp(22px, 2.4vw, 36px);
+}
+
+.left p{
+  margin: 10px 0;
+  line-height:1.6;
+  font-size: clamp(14px, 1.9vw, 17px);
+}
+
+.firma{ margin-top:14px; font-weight:950; }
+
+.timerBox{
+  margin-top:18px;
+  padding: 16px 18px;
+  border-radius:18px;
+  background: rgba(255,255,255,.70);
+  box-shadow:
+    inset 0 0 0 1px rgba(0,0,0,.06),
+    0 14px 34px rgba(0,0,0,.08);
+}
+
+.timerTitle{
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:10px;
+}
+
+.timerValue{
+  font-weight:950;
+  letter-spacing:.2px;
+  font-size: clamp(16px, 2vw, 22px);
+}
+
+/* ---------- ÁRBOL (ARREGLADO) ---------- */
+.right{ display:grid; place-items:center; }
+
+.tree{
+  position:relative;
+  width:min(520px, 52vw);
+  height: 520px;
+  z-index:2; /* árbol encima de la lluvia */
+}
+
+/* ramas visibles */
+.branches{
+  position:absolute;
+  left:50%;
+  top: 165px;
+  transform: translateX(-50%);
+  width: 420px;
+  height: 280px;
+  z-index:3;
+  opacity:1;
+  filter: drop-shadow(0 14px 18px rgba(0,0,0,.12));
+}
+
+/* copa corazón grande pero NO tapa todo */
+.canopySvg{
+  position:absolute;
+  left:50%;
+  top: 40px;
+  transform: translateX(-50%);
+  width: 420px;
+  height: 360px;
+  z-index:2;
+  opacity:.75;
+  filter: drop-shadow(0 18px 22px rgba(0,0,0,.12));
+}
+
+/* hojas por encima (JS) */
+.leaves{
+  position:absolute;
+  left:50%;
+  top: 58px;
+  transform: translateX(-50%);
+  width: 420px;
+  height: 330px;
+  z-index:4;
+  pointer-events:none;
+  filter: drop-shadow(0 18px 22px rgba(0,0,0,.10));
+}
+
+/* tronco */
+.trunk{
+  position:absolute;
+  left:50%;
+  bottom: 70px;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 260px;
+  background: linear-gradient(180deg, var(--wood1), var(--wood2));
+  border-radius: 50px 50px 28px 28px;
+  box-shadow:
+    inset -18px 0 0 rgba(255,255,255,.06),
+    0 22px 34px rgba(0,0,0,.18);
+  z-index:1;
+}
+
+/* suelo */
+.floor{
+  position:absolute;
+  left:12%;
+  right:12%;
+  bottom: 52px;
+  height:4px;
+  background: rgba(0,0,0,.55);
+  border-radius:999px;
+  z-index:1;
+}
+
+/* hojas pequeñas (para que parezca árbol) */
+.leaf{
+  position:absolute;
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(135deg, rgba(255,255,255,.40), var(--pink1));
+  transform: rotate(45deg);
+  border-radius: 3px;
+  opacity: .95;
+  filter: drop-shadow(0 10px 12px rgba(0,0,0,.10));
+}
+
+.leaf::before,
+.leaf::after{
+  content:"";
+  position:absolute;
+  width: 10px;
+  height: 10px;
+  background: inherit;
+  border-radius: 50%;
+}
+.leaf::before{ left:-5px; top:0; }
+.leaf::after{ left:0; top:-5px; }
+
+/* ---------- LLUVIA (NO TAPA EL ÁRBOL) ---------- */
+.rain{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:0;      /* atrás */
+  opacity:.28;    /* suave */
+  filter: blur(.2px);
+}
+
+.drop{
+  position:absolute;
+  top:-40px;
+  opacity:.95;
+  animation: fall linear forwards;
+  filter: drop-shadow(0 10px 12px rgba(0,0,0,.2));
+}
+
+@keyframes fall{
+  to{ transform: translateY(120%); opacity: 0.9; }
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px){
+  .content{
+    grid-template-columns: 1fr;
+    min-height: 780px;
+    gap: 14px;
+  }
+  .tree{ width:min(520px, 94vw); height: 520px; }
+  .canopySvg, .leaves, .branches{ width: 380px; height: 330px; }
+  .branches{ top: 180px; }
+}

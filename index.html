@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Laura te quiero</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="bg"></div>
+
+  <main class="wrap">
+    <section class="card">
+
+      <!-- INICIO -->
+      <div class="start" id="start">
+        <h1 class="heroTitle">Laura te quiero</h1>
+        <p class="heroSub">Toca el corazón para ver la sorpresa</p>
+
+        <button class="heartBtn" id="heartBtn" aria-label="Abrir sorpresa">
+          <span class="heartReal" aria-hidden="true"></span>
+          <span class="hand" aria-hidden="true">👆</span>
+        </button>
+      </div>
+
+      <!-- CONTENIDO -->
+      <div class="content hidden" id="content">
+        <div class="left">
+          <h2>Para ti, Laura:</h2>
+
+          <p>Me gusta hablar contigo.<br>Contigo todo se siente más bonito.</p>
+
+          <p>Gracias por estos días ✨<br>Vamos con calma… pero con ganas.</p>
+
+          <p class="firma">— Te quiero 💕</p>
+
+          <div class="timerBox">
+            <div class="timerTitle">Vamos así desde hace…</div>
+            <div class="timerValue" id="timer">19 días 0 horas 0 minutos 0 segundos</div>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="tree">
+
+            <!-- RAMAS -->
+            <svg class="branches" viewBox="0 0 320 260" aria-hidden="true">
+              <path d="M160 255 C160 205 160 165 160 120"
+                    stroke="rgba(58,36,27,.95)" stroke-width="16" stroke-linecap="round" fill="none"/>
+              <path d="M160 170 C130 150 110 125 92 96"
+                    stroke="rgba(58,36,27,.88)" stroke-width="12" stroke-linecap="round" fill="none"/>
+              <path d="M160 168 C190 150 210 125 228 96"
+                    stroke="rgba(58,36,27,.88)" stroke-width="12" stroke-linecap="round" fill="none"/>
+              <path d="M148 145 C126 130 114 112 104 90"
+                    stroke="rgba(58,36,27,.78)" stroke-width="10" stroke-linecap="round" fill="none"/>
+              <path d="M172 145 C196 130 208 112 218 90"
+                    stroke="rgba(58,36,27,.78)" stroke-width="10" stroke-linecap="round" fill="none"/>
+            </svg>
+
+            <!-- COPA (corazón grande) -->
+            <svg class="canopySvg" viewBox="0 0 320 280" aria-hidden="true">
+              <defs>
+                <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#ff9ab0"/>
+                  <stop offset="0.55" stop-color="#ff4d6d"/>
+                  <stop offset="1" stop-color="#ff2d55"/>
+                </linearGradient>
+                <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+                  <feDropShadow dx="0" dy="16" stdDeviation="12" flood-color="rgba(255,45,85,.18)"/>
+                </filter>
+              </defs>
+
+              <path filter="url(#softShadow)"
+                d="M160 255
+                   C 85 195, 55 145, 70 105
+                   C 85 70, 120 62, 160 92
+                   C 200 62, 235 70, 250 105
+                   C 265 145, 235 195, 160 255 Z"
+                fill="url(#g1)"/>
+            </svg>
+
+            <!-- HOJAS (JS llena esto) -->
+            <div class="leaves" id="leaves"></div>
+
+            <!-- TRONCO + SUELO -->
+            <div class="trunk"></div>
+            <div class="floor"></div>
+          </div>
+        </div>
+
+        <!-- LLUVIA -->
+        <div class="rain" id="rain"></div>
+      </div>
+
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
