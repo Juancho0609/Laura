@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
   <div class="bg"></div>
 
   <main class="wrap">
@@ -22,6 +21,8 @@
           <span class="heartReal" aria-hidden="true"></span>
           <span class="hand" aria-hidden="true">👆</span>
         </button>
+
+        <p class="made">Hecho con cariño ✨</p>
       </div>
 
       <!-- CONTENIDO -->
@@ -42,54 +43,74 @@
         </div>
 
         <div class="right">
-          <div class="tree">
-
-            <!-- RAMAS -->
-            <svg class="branches" viewBox="0 0 320 260" aria-hidden="true">
-              <path d="M160 255 C160 205 160 165 160 120"
-                    stroke="rgba(58,36,27,.95)" stroke-width="16" stroke-linecap="round" fill="none"/>
-              <path d="M160 170 C130 150 110 125 92 96"
-                    stroke="rgba(58,36,27,.88)" stroke-width="12" stroke-linecap="round" fill="none"/>
-              <path d="M160 168 C190 150 210 125 228 96"
-                    stroke="rgba(58,36,27,.88)" stroke-width="12" stroke-linecap="round" fill="none"/>
-              <path d="M148 145 C126 130 114 112 104 90"
-                    stroke="rgba(58,36,27,.78)" stroke-width="10" stroke-linecap="round" fill="none"/>
-              <path d="M172 145 C196 130 208 112 218 90"
-                    stroke="rgba(58,36,27,.78)" stroke-width="10" stroke-linecap="round" fill="none"/>
-            </svg>
-
-            <!-- COPA (corazón grande) -->
-            <svg class="canopySvg" viewBox="0 0 320 280" aria-hidden="true">
+          <!-- ÁRBOL SVG (bonito y sin errores) -->
+          <div class="treeWrap" aria-hidden="true">
+            <svg class="treeSvg" viewBox="0 0 520 520">
               <defs>
-                <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#a26543"/>
+                  <stop offset="1" stop-color="#3a241b"/>
+                </linearGradient>
+
+                <linearGradient id="leafPink" x1="0" y1="0" x2="1" y2="1">
                   <stop offset="0" stop-color="#ff9ab0"/>
                   <stop offset="0.55" stop-color="#ff4d6d"/>
                   <stop offset="1" stop-color="#ff2d55"/>
                 </linearGradient>
-                <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
-                  <feDropShadow dx="0" dy="16" stdDeviation="12" flood-color="rgba(255,45,85,.18)"/>
+
+                <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="16" stdDeviation="12" flood-color="rgba(0,0,0,.16)"/>
                 </filter>
+
+                <!-- Corazoncito para clonar -->
+                <path id="miniHeart"
+                  d="M10 18
+                     C 5 14, 2 10, 3 7
+                     C 4 4, 7 3, 10 5
+                     C 13 3, 16 4, 17 7
+                     C 18 10, 15 14, 10 18 Z" />
               </defs>
 
+              <!-- suelo -->
+              <line x1="70" y1="460" x2="450" y2="460" stroke="rgba(0,0,0,.55)" stroke-width="5" stroke-linecap="round"/>
+
+              <!-- tronco -->
               <path filter="url(#softShadow)"
-                d="M160 255
-                   C 85 195, 55 145, 70 105
-                   C 85 70, 120 62, 160 92
-                   C 200 62, 235 70, 250 105
-                   C 265 145, 235 195, 160 255 Z"
-                fill="url(#g1)"/>
+                d="M245 450
+                   C245 410 245 340 245 300
+                   C245 275 260 260 275 260
+                   C290 260 305 275 305 300
+                   C305 340 305 410 305 450
+                   C305 470 290 485 275 485
+                   C260 485 245 470 245 450 Z"
+                fill="url(#wood)"/>
+
+              <!-- ramas -->
+              <path d="M275 290 C250 270 230 245 210 215"
+                    stroke="rgba(58,36,27,.88)" stroke-width="14" stroke-linecap="round" fill="none"/>
+              <path d="M275 290 C300 270 320 245 340 215"
+                    stroke="rgba(58,36,27,.88)" stroke-width="14" stroke-linecap="round" fill="none"/>
+              <path d="M270 260 C245 248 230 232 220 210"
+                    stroke="rgba(58,36,27,.75)" stroke-width="12" stroke-linecap="round" fill="none"/>
+              <path d="M280 260 C305 248 320 232 330 210"
+                    stroke="rgba(58,36,27,.75)" stroke-width="12" stroke-linecap="round" fill="none"/>
+
+              <!-- copa en forma de corazón -->
+              <path filter="url(#softShadow)"
+                d="M260 300
+                   C160 230, 135 170, 160 130
+                   C185 90, 230 95, 260 125
+                   C290 95, 335 90, 360 130
+                   C385 170, 360 230, 260 300 Z"
+                fill="url(#leafPink)" opacity=".22"/>
+
+              <!-- hojitas: se inyectan por JS dentro del grupo -->
+              <g id="leafGroup"></g>
             </svg>
-
-            <!-- HOJAS (JS llena esto) -->
-            <div class="leaves" id="leaves"></div>
-
-            <!-- TRONCO + SUELO -->
-            <div class="trunk"></div>
-            <div class="floor"></div>
           </div>
         </div>
 
-        <!-- LLUVIA -->
+        <!-- lluvia -->
         <div class="rain" id="rain"></div>
       </div>
 
@@ -99,3 +120,5 @@
   <script src="script.js"></script>
 </body>
 </html>
+
+
