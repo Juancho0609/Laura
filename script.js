@@ -4,9 +4,10 @@ const content = document.getElementById("content");
 
 const rain = document.getElementById("rain");
 const timerEl = document.getElementById("timer");
-const leavesBox = document.getElementById("leaves");
 
-// ✅ 19 días atrás desde hoy (automático)
+const leafGroup = document.getElementById("leafGroup");
+
+// ✅ 19 días atrás (automático)
 const startDate = new Date(Date.now() - 19 * 24 * 60 * 60 * 1000);
 
 let timerInterval = null;
@@ -16,22 +17,22 @@ heartBtn.addEventListener("click", () => {
   start.classList.add("hidden");
   content.classList.remove("hidden");
 
-  // crea hojas una sola vez
-  makeLeaves(150);
+  // Hojitas en copa corazón (SVG)
+  buildLeavesSVG(220);
 
   // contador
   updateTimer();
-  if (timerInterval) clearInterval(timerInterval);
+  clearInterval(timerInterval);
   timerInterval = setInterval(updateTimer, 1000);
 
-  // lluvia
-  if (rainInterval) clearInterval(rainInterval);
-  rainInterval = setInterval(createDrop, 170);
+  // lluvia suave
+  clearInterval(rainInterval);
+  rainInterval = setInterval(createDrop, 340);
 });
 
 function updateTimer(){
   const now = new Date();
-  let diff = Math.max(0, now - startDate);
+  const diff = Math.max(0, now - startDate);
 
   const sec = Math.floor(diff / 1000);
   const days = Math.floor(sec / 86400);
@@ -42,7 +43,7 @@ function updateTimer(){
   timerEl.textContent = `${days} días ${hours} horas ${mins} minutos ${secs} segundos`;
 }
 
-/* Lluvia de corazones */
+/* Lluvia */
 function createDrop(){
   const el = document.createElement("div");
   el.className = "drop";
@@ -51,7 +52,7 @@ function createDrop(){
   el.style.left = (Math.random() * 100) + "%";
   el.style.fontSize = (14 + Math.random() * 22) + "px";
 
-  const duration = 2.6 + Math.random() * 2.2;
+  const duration = 2.8 + Math.random() * 2.6;
   el.style.animationDuration = duration + "s";
 
   rain.appendChild(el);
@@ -62,35 +63,44 @@ function pick(arr){
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-/* Hojas (corazoncitos) formando copa */
-function makeLeaves(n){
-  leavesBox.innerHTML = "";
+/* Árbol: hojas SVG en forma de copa-corazón */
+function buildLeavesSVG(n){
+  leafGroup.innerHTML = "";
 
-  const w = leavesBox.clientWidth;
-  const h = leavesBox.clientHeight;
+  // zona donde van las hojas (copa)
+  const cx = 260;
+  const cy = 175;
 
   for(let i=0;i<n;i++){
-    const leaf = document.createElement("div");
-    leaf.className = "leaf";
+    const p = randomPointInHeart();
 
-    // zona base
-    let x = (w * 0.18) + Math.random() * (w * 0.64);
-    let y = (h * 0.06) + Math.random() * (h * 0.80);
+    const x = cx + p.x * 95;
+    const y = cy - p.y * 85;
 
-    // “recorte” para que parezca corazón/árbol: estrecha hacia abajo y bordes
-    const t = y / h; // 0 arriba, 1 abajo
-    const centerX = w / 2;
-    const dx = (x - centerX) / centerX;
+    const s = 0.55 + Math.random()*1.15;
+    const rot = 8 + Math.random()*40;
+    const op = 0.35 + Math.random()*0.55;
 
-    x = x - Math.abs(dx) * (10 + 30 * t);
+    const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+    use.setAttributeNS("http://www.w3.org/1999/xlink", "href", "#miniHeart");
+    use.setAttribute("fill", "url(#leafPink)");
+    use.setAttribute("opacity", op.toFixed(2));
+    use.setAttribute("transform", `translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${s.toFixed(2)}) rotate(${rot.toFixed(0)})`);
 
-    leaf.style.left = x + "px";
-    leaf.style.top = y + "px";
-
-    const s = 0.55 + Math.random() * 1.25;
-    leaf.style.transform = `rotate(45deg) scale(${s.toFixed(2)})`;
-    leaf.style.opacity = (0.55 + Math.random() * 0.40).toFixed(2);
-
-    leavesBox.appendChild(leaf);
+    leafGroup.appendChild(use);
   }
 }
+
+// corazón matemático: (x^2 + y^2 - 1)^3 - x^2 y^3 <= 0
+function randomPointInHeart(){
+  while(true){
+    const x = (Math.random()*2 - 1) * 1.2;
+    const y = (Math.random()*2 - 1) * 1.2;
+    const a = (x*x + y*y - 1);
+    if((a*a*a) - (x*x*y*y*y) <= 0){
+      return { x, y };
+    }
+  }
+}
+
+
